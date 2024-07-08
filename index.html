@@ -56,7 +56,7 @@
     </style>
 </head>
 <body>
-    <div id="step1" class="container">
+    <div id="step1" class="container active">
         <h1>Congrats Dr. Senol. It was a really nice presentation. Now, time for the gift. What do you think it is?</h1>
         <form id="giftForm">
             <input type="text" name="gift" placeholder="Enter your answer here" required>
@@ -64,6 +64,7 @@
             <button type="submit">Submit</button>
         </form>
         <div id="message1" class="message" style="display:none;">Nope. nope and nope</div>
+        <div id="dateError1" class="message" style="display:none;">You can only proceed to the next step on July 9, 2024.</div>
     </div>
 
     <div id="step2" class="container">
@@ -74,6 +75,7 @@
             <button type="submit">Submit</button>
         </form>
         <div id="message2" class="message" style="display:none;">Still incorrect. Think harder.</div>
+        <div id="dateError2" class="message" style="display:none;">You can only proceed to the next step on July 10, 2024.</div>
     </div>
 
     <div id="step3" class="container">
@@ -84,6 +86,7 @@
             <button type="submit">Submit</button>
         </form>
         <div id="message3" class="message" style="display:none;">Think Harder Dr. Senol</div>
+        <div id="dateError3" class="message" style="display:none;">You can only proceed to the next step on July 11, 2024.</div>
     </div>
 
     <div id="step4" class="container">
@@ -97,48 +100,51 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentDate = new Date();
-            const step1Date = new Date('2024-07-08');
-            const step2Date = new Date('2024-07-09');
-            const step3Date = new Date('2024-07-10');
-            const step4Date = new Date('2024-07-11');
-
-            if (currentDate >= step4Date) {
-                document.getElementById('step4').classList.add('active');
-            } else if (currentDate >= step3Date) {
-                document.getElementById('step3').classList.add('active');
-            } else if (currentDate >= step2Date) {
-                document.getElementById('step2').classList.add('active');
-            } else if (currentDate >= step1Date) {
-                document.getElementById('step1').classList.add('active');
-            }
-        });
-
         document.getElementById('giftForm').addEventListener('submit', function(event) {
             event.preventDefault();
             document.getElementById('message1').style.display = 'block';
+            const currentDate = new Date();
+            const step2Date = new Date('2024-07-09');
+
             setTimeout(function() {
-                document.getElementById('step1').classList.remove('active');
-                document.getElementById('step2').classList.add('active');
+                if (currentDate.toDateString() === step2Date.toDateString()) {
+                    document.getElementById('step1').classList.remove('active');
+                    document.getElementById('step2').classList.add('active');
+                } else {
+                    document.getElementById('dateError1').style.display = 'block';
+                }
             }, 2000);
         });
 
         document.getElementById('hintForm1').addEventListener('submit', function(event) {
             event.preventDefault();
             document.getElementById('message2').style.display = 'block';
+            const currentDate = new Date();
+            const step3Date = new Date('2024-07-10');
+
             setTimeout(function() {
-                document.getElementById('step2').classList.remove('active');
-                document.getElementById('step3').classList.add('active');
+                if (currentDate.toDateString() === step3Date.toDateString()) {
+                    document.getElementById('step2').classList.remove('active');
+                    document.getElementById('step3').classList.add('active');
+                } else {
+                    document.getElementById('dateError2').style.display = 'block';
+                }
             }, 2000);
         });
 
         document.getElementById('hintForm2').addEventListener('submit', function(event) {
             event.preventDefault();
             document.getElementById('message3').style.display = 'block';
+            const currentDate = new Date();
+            const step4Date = new Date('2024-07-11');
+
             setTimeout(function() {
-                document.getElementById('step3').classList.remove('active');
-                document.getElementById('step4').classList.add('active');
+                if (currentDate.toDateString() === step4Date.toDateString()) {
+                    document.getElementById('step3').classList.remove('active');
+                    document.getElementById('step4').classList.add('active');
+                } else {
+                    document.getElementById('dateError3').style.display = 'block';
+                }
             }, 2000);
         });
 
